@@ -49,11 +49,17 @@ Function DownloadKB5003435 {
     else { write-host "- ERROR: File download appears to have failed. -ForegroundColor Red" }
     }
 
-write-host "Performing ASPX Check for active webshells ..."
+write-host "Performing ASPX Check for active webshells in c:\inetpub\wwwroot\aspnet_client ..."
 $Shells=Get-ChildItem c:\inetpub\wwwroot\aspnet_client\ -recurse -filter  "*.aspx"
 Foreach ($shell in $shells) {
-    write-host "- WARN: Webshell file found and removed - c:\inetpub\wwwroot\aspnet_client\$shell" -ForegroundColor Red
+    write-host "- WARN: Webshell file found and remove attempted - c:\inetpub\wwwroot\aspnet_client\$shell" -ForegroundColor Red
     remove-item c:\inetpub\wwwroot\aspnet_client\$shell
+    }
+write-host "Performing ASPX Check for active webshells in C:\Program Files\Microsoft\Exchange Server\V15\FrontEnd\HttpProxy\owa\auth\Current ..."
+$Shells=Get-ChildItem 'C:\Program Files\Microsoft\Exchange Server\V15\FrontEnd\HttpProxy\owa\auth\Current\' -recurse -filter  "*.aspx"
+Foreach ($shell in $shells) {
+    write-host "- WARN: Webshell file found and remove attempted - c:\inetpub\wwwroot\aspnet_client\$shell" -ForegroundColor Red
+    remove-item 'C:\Program Files\Microsoft\Exchange Server\V15\FrontEnd\HttpProxy\owa\auth\Current\'$shell
     }
 write-host "Exchange installed at $ExchInstDir"
 
